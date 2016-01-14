@@ -125,7 +125,8 @@ public class jmongoiibench {
             myWC = WriteConcern.FSYNC_SAFE;
         }
         else if ((myWriteConcern.toLowerCase().equals("none"))) {
-            myWC = WriteConcern.NONE;
+            //myWC = WriteConcern.NONE;
+            throw new RuntimeException("WriteConcern.NONE is not supported for driver version >= 3.0");
         }
         else if ((myWriteConcern.toLowerCase().equals("normal"))) {
             myWC = WriteConcern.NORMAL;
@@ -263,15 +264,15 @@ public class jmongoiibench {
     
             if (numSecondaryIndexes >= 1) {
                 logMe(" *** creating secondary index on price + customerid");
-                coll.ensureIndex(new BasicDBObject("price", 1).append("customerid", 1), idxOptions);
+                coll.createIndex(new BasicDBObject("price", 1).append("customerid", 1), idxOptions);
             }
             if (numSecondaryIndexes >= 2) {
                 logMe(" *** creating secondary index on cashregisterid + price + customerid");
-                coll.ensureIndex(new BasicDBObject("cashregisterid", 1).append("price", 1).append("customerid", 1), idxOptions);
+                coll.createIndex(new BasicDBObject("cashregisterid", 1).append("price", 1).append("customerid", 1), idxOptions);
             }
             if (numSecondaryIndexes >= 3) {
                 logMe(" *** creating secondary index on price + dateandtime + customerid");
-                coll.ensureIndex(new BasicDBObject("price", 1).append("dateandtime", 1).append("customerid", 1), idxOptions);
+                coll.createIndex(new BasicDBObject("price", 1).append("dateandtime", 1).append("customerid", 1), idxOptions);
             }
             // END: create the collection
         }
