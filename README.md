@@ -27,5 +27,5 @@ cd iibench-mongodb
 *[optionally edit run.mvn.bash to modify the benchmark behavior]*
 
 ```bash
-./run.mvn.bash <host> <port> <dbname>
+./run.simple.bash <host> <port> <dbname>
 ```
